@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miquéias — Desenvolvedor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #14201d;
+    --paper: #f2f0e8;
+    --paper-dim: #e6e3d8;
+    --teal: #0c3d38;
+    --teal-soft: #235c53;
+    --pulse: #c8402f;
+    --line: rgba(20,32,29,0.14);
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --serif: 'Newsreader', serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+
+  /* status bar */
+  .statusbar{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.04em;
+    color:var(--teal-soft);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 28px;
+    border-bottom:1px solid var(--line);
+  }
+  .statusbar .dot{
+    display:inline-block; width:7px; height:7px; border-radius:50%;
+    background:var(--pulse); margin-right:8px;
+    animation:blink 2.4s ease-in-out infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.25;}}
+
+  /* pulse divider */
+  .pulse-divider{
+    width:100%; height:46px; overflow:hidden; margin:6px 0;
+  }
+  .pulse-divider svg{width:100%; height:100%; display:block;}
+  .pulse-line{
+    fill:none; stroke:var(--pulse); stroke-width:1.6;
+    stroke-dasharray:900; stroke-dashoffset:900;
+    animation:draw 2.6s ease forwards;
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+
+  /* hero */
+  header.hero{
+    padding:90px 0 70px;
+  }
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--teal-soft); margin-bottom:22px;
+  }
+  h1.name{
+    font-family:var(--serif); font-weight:500; font-size:clamp(40px,7vw,68px);
+    line-height:1.05; color:var(--teal); max-width:14ch;
+  }
+  .role{
+    font-family:var(--serif); font-style:italic; font-weight:400;
+    font-size:clamp(19px,2.4vw,24px); color:var(--ink); margin-top:16px; max-width:32ch;
+  }
+  .thesis{
+    margin-top:34px; max-width:52ch; font-size:16px; color:var(--ink); opacity:0.85;
+  }
+
+  /* section labels */
+  .sec-label{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--pulse); margin-bottom:10px;
+  }
+  section{padding:56px 0;}
+  section.projects{padding-top:20px;}
+
+  h2.sec-title{
+    font-family:var(--serif); font-weight:500; font-size:clamp(26px,4vw,34px);
+    color:var(--teal); margin-bottom:36px;
+  }
+
+  /* project cards */
+  .project{
+    border-top:1px solid var(--line);
+    padding:40px 0;
+    display:grid;
+    grid-template-columns:1fr 1.5fr;
+    gap:28px;
+  }
+  .project:last-child{border-bottom:1px solid var(--line);}
+  .project-meta{font-family:var(--mono); font-size:12px; color:var(--teal-soft);}
+  .project-meta .tag{
+    display:inline-block; padding:3px 8px; border:1px solid var(--teal-soft);
+    border-radius:3px; margin:2px 6px 2px 0; font-size:11px;
+  }
+  .project-name{
+    font-family:var(--serif); font-size:24px; font-weight:600; color:var(--ink);
+    margin:10px 0 12px;
+  }
+  .project-desc{font-size:15px; color:var(--ink); opacity:0.88; margin-bottom:14px;}
+  .project-impact{
+    font-family:var(--mono); font-size:13px; color:var(--pulse); border-left:2px solid var(--pulse);
+    padding-left:12px; margin-top:14px;
+  }
+  .project-links a{
+    font-family:var(--mono); font-size:13px; text-decoration:underline;
+    text-underline-offset:3px; margin-right:18px; color:var(--teal);
+  }
+
+  @media (max-width:720px){
+    .project{grid-template-columns:1fr;}
+  }
+
+  /* stack */
+  .stack-grid{
+    display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .stack-item{
+    font-family:var(--mono); font-size:13px; padding:7px 12px;
+    background:var(--paper-dim); border-radius:3px; color:var(--ink);
+  }
+
+  /* contact */
+  footer{
+    padding:70px 0 60px; border-top:1px solid var(--line);
+  }
+  .contact-title{
+    font-family:var(--serif); font-size:clamp(28px,5vw,42px); color:var(--teal);
+    max-width:16ch; margin-bottom:30px;
+  }
+  .contact-list a{
+    display:block; font-family:var(--mono); font-size:15px; padding:10px 0;
+    border-bottom:1px solid var(--line); text-decoration:none;
+  }
+  .contact-list a:hover{color:var(--pulse);}
+  .fine{
+    margin-top:40px; font-family:var(--mono); font-size:11px; color:var(--teal-soft); opacity:0.7;
+  }
+
+  ::selection{background:var(--pulse); color:var(--paper);}
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <span><span class="dot"></span>SISTEMA: OPERACIONAL</span>
+  <span>BR · DISPONÍVEL PARA PROJETOS</span>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Portfólio · Desenvolvimento de Software</div>
+    <h1 class="name">Miquéias Rodrigues Ribeiro</h1>
+    <p class="role">Desenvolvedor formando-se em Engenharia da Computação</p>
+    <p class="thesis">
+      Construo sistemas para contextos onde erro tem custo real —
+      da distribuição de insulina em posto de saúde à triagem assistida por IA.
+      Foco em software que funciona sob pressão, não só na demo.
+    </p>
+  </header>
+
+  <div class="pulse-divider">
+    <svg viewBox="0 0 800 46" preserveAspectRatio="none">
+      <path class="pulse-line" d="M0,23 L180,23 L200,23 L215,4 L230,42 L245,10 L258,23 L320,23 L800,23"/>
+    </svg>
+  </div>
+
+  <section class="projects">
+    <div class="sec-label">Registro de Sistemas</div>
+    <h2 class="sec-title">Projetos em produção</h2>
+
+    <div class="project">
+      <div>
+        <div class="project-meta">
+          CASO 01 — SAÚDE PÚBLICA
+        </div>
+      </div>
+      <div>
+        <div class="project-name">Sistema de Distribuição de Insulina</div>
+        <div class="project-meta">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">MySQL</span>
+        </div>
+        <p class="project-desc">
+          Desenvolvido para um posto de saúde, para agilizar o atendimento e a distribuição
+          de insulina, evitando perda de dados importantes de pacientes. Fui responsável
+          pela tela de cadastro de pacientes e pela listagem de pacientes cadastrados,
+          exibindo dados e status (ativo/inativo) — a base pra equipe saber rapidamente
+          quem está apto a retirar o medicamento.
+        </p>
+        <div class="project-impact">
+          STATUS → em fase de testes · 30 pacientes cadastrados até o momento
+        </div>
+        <div class="project-links" style="margin-top:16px;">
+          <a href="#">Repositório</a>
+          <a href="#">Demonstração</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div>
+        <div class="project-meta">
+          CASO 02 — IA APLICADA
+        </div>
+      </div>
+      <div>
+        <div class="project-name">TriagemPRO — Triagem Inteligente de Documentos</div>
+        <div class="project-meta">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Python</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">API Google (IA)</span>
+        </div>
+        <p class="project-desc">
+          Sistema voltado a profissionais da saúde, jurídicos e contábeis, pra agilizar
+          o atendimento a clientes e organizar documentos com mais rapidez. A IA analisa
+          cada documento recebido, verifica o grau de urgência, classifica por categoria
+          e gera um resumo automático do conteúdo — o profissional já recebe o documento
+          pré-organizado e sabe o que priorizar antes mesmo de abrir tudo manualmente.
+        </p>
+        <div class="project-impact">
+          META → redução estimada de ~40% no tempo de organização de documentos por atendimento*<br>
+          <span style="font-size:11px; opacity:0.75;">*projeção interna, aguardando validação em uso real</span>
+        </div>
+        <div class="project-links" style="margin-top:16px;">
+          <a href="#">Repositório</a>
+          <a href="#">Vídeo demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pulse-divider">
+    <svg viewBox="0 0 800 46" preserveAspectRatio="none">
+      <path class="pulse-line" d="M0,23 L400,23 L415,4 L430,42 L445,10 L458,23 L800,23"/>
+    </svg>
+  </div>
+
+  <section>
+    <div class="sec-label">Stack</div>
+    <h2 class="sec-title">Ferramentas de trabalho</h2>
+    <div class="stack-grid">
+      <span class="stack-item">HTML / CSS</span>
+      <span class="stack-item">JavaScript</span>
+      <span class="stack-item">Python</span>
+      <span class="stack-item">MySQL</span>
+      <span class="stack-item">PostgreSQL</span>
+      <span class="stack-item">API Google (IA)</span>
+      <span class="stack-item">Docker</span>
+      <span class="stack-item">Git / GitHub</span>
+    </div>
+  </section>
+
+  <footer>
+    <div class="sec-label">Contato</div>
+    <div class="contact-title">Bora conversar sobre o seu projeto.</div>
+    <div class="contact-list">
+      <a href="https://wa.me/55SEUNUMERO" target="_blank">WhatsApp → wa.me/55SEUNUMERO</a>
+      <a href="https://github.com/SEUUSUARIO" target="_blank">GitHub → github.com/SEUUSUARIO</a>
+      <a href="https://linkedin.com/in/SEUUSUARIO" target="_blank">LinkedIn → linkedin.com/in/SEUUSUARIO</a>
+      <a href="mailto:seuemail@exemplo.com">Email → seuemail@exemplo.com</a>
+    </div>
+    <div class="fine">Última atualização · 2026</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
